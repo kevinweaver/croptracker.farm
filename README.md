@@ -1,7 +1,6 @@
-## Hi. I like to make things. 
-### This is my website.
+# Tractor Supply Depot
 
-I'm testing out Next.js and Tailwind CSS.  My opinions on them are TBD.
+## Coming soon.
 
 ### Development
 
