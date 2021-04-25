@@ -8,7 +8,7 @@ body {
   font-family: 'Archivo Black';
   display: block;
   width: 100%;
-  background: #0F0F0F;
+  background: #111111;
 }
 
 h1 {
@@ -16,6 +16,9 @@ h1 {
   color: white;
 }
 
+.text-shadow {
+  text-shadow: "0px 3px 2px #111111";
+}
 
 //.cta {
 //  border: solid 1.5em rgba(#000, .03);
