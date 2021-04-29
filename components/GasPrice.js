@@ -22,15 +22,18 @@ const growthFeatures = [
 ];
 
 export default function GasPrice(props) {
-  const [gasData, setGasData] = useState({});
+  const [gasData, setGasData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setGasData(fetchGas);
+    setLoading(true);
+    fetchGas().then((fetchedGas) => {
+      setLoading(false);
+      setGasData(fetchedGas);
+    });
   }, []);
 
   const fetchGas = async () => {
-    console.log(await gasPrice());
-    console.log(await ping());
     return await gasPrice();
   };
 
@@ -65,7 +68,9 @@ export default function GasPrice(props) {
                         </h3>
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
-                            <span className="font-extrabold">47</span>
+                            <span className="font-extrabold">
+                              {gasData?.standard}
+                            </span>
                           </span>
                           <span className="text-xl font-medium text-gray-500">
                             gwei
@@ -127,7 +132,9 @@ export default function GasPrice(props) {
                       </h3>
                       <div className="mt-4 flex items-center justify-center">
                         <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900 sm:text-6xl">
-                          <span className="font-extrabold">49</span>
+                          <span className="font-extrabold">
+                            {gasData?.fast}
+                          </span>
                         </span>
                         <span className="text-2xl font-medium text-gray-500">
                           gwei
@@ -178,7 +185,9 @@ export default function GasPrice(props) {
                         </h3>
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
-                            <span className="font-extrabold">51</span>
+                            <span className="font-extrabold">
+                              {gasData?.instant}
+                            </span>
                           </span>
                           <span className="text-xl font-medium text-gray-500">
                             gwei
