@@ -6,5 +6,12 @@ export default async function gasPrice() {
 
   const response = await fetch(requestUrl);
   const prices = await response.json();
+  return sanitize(prices);
+}
+
+function sanitize(prices) {
+  for (var price in prices) {
+    prices[price] = Math.ceil(prices[price]);
+  }
   return prices;
 }

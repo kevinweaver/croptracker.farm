@@ -22,14 +22,14 @@ const growthFeatures = [
 ];
 
 export default function GasPrice(props) {
-  const [gasData, setGasData] = useState(null);
+  const [gas, setGas] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     fetchGas().then((fetchedGas) => {
       setLoading(false);
-      setGasData(fetchedGas);
+      setGas(fetchedGas);
     });
   }, []);
 
@@ -69,7 +69,7 @@ export default function GasPrice(props) {
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
                             <span className="font-extrabold">
-                              {gasData?.standard}
+                              {gas?.standard || "00"}
                             </span>
                           </span>
                           <span className="text-xl font-medium text-gray-500">
@@ -133,7 +133,7 @@ export default function GasPrice(props) {
                       <div className="mt-4 flex items-center justify-center">
                         <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900 sm:text-6xl">
                           <span className="font-extrabold">
-                            {gasData?.fast}
+                            {gas?.fast || "00"}
                           </span>
                         </span>
                         <span className="text-2xl font-medium text-gray-500">
@@ -186,7 +186,7 @@ export default function GasPrice(props) {
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
                             <span className="font-extrabold">
-                              {gasData?.instant}
+                              {gas?.instant || "00"}
                             </span>
                           </span>
                           <span className="text-xl font-medium text-gray-500">
