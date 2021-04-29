@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/outline";
+import gasPrice from "./utils/Zapper";
 
 const hobbyFeatures = [
   "Pariatur quod similique",
@@ -18,7 +20,18 @@ const growthFeatures = [
   "Nam ut ipsa nesciunt culpa modi dolor",
 ];
 
-export default function GasPrice() {
+export default function GasPrice(props) {
+  const [gasData, setGasData] = useState({});
+
+  useEffect(() => {
+    setGasData(fetchGas);
+  }, []);
+
+  const fetchGas = async () => {
+    console.log(gasPrice());
+    return gasPrice();
+  };
+
   return (
     <>
       <div className="pt-12 px-4 sm:px-6 lg:px-8 lg:pt-20">
