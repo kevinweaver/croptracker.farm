@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/outline";
 import gasPrice from "./utils/Zapper";
+import ping from "./utils/CoinGecko";
 
 const hobbyFeatures = [
   "Pariatur quod similique",
@@ -28,8 +29,9 @@ export default function GasPrice(props) {
   }, []);
 
   const fetchGas = async () => {
-    console.log(gasPrice());
-    return gasPrice();
+    console.log(await gasPrice());
+    console.log(await ping());
+    return await gasPrice();
   };
 
   return (
