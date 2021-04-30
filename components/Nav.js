@@ -7,7 +7,7 @@ export default function Nav() {
             className="ml-2 text-2xl font-bold leading-7 text-white \
         sm:text-3xl sm:truncate text-shadow"
           >
-            Tractor Supply Depot
+            CropTracker
           </h2>
         </div>
         <div className="mt-4 flex md:mt-0 md:ml-4">

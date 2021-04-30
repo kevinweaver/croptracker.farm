@@ -1,7 +1,6 @@
 import Head from "next/head";
-import HomeHero from "../components/HomeHero.js";
-import Dashboard from "../components/Dashboard.js";
 import Nav from "../components/Nav.js";
+import Dashboard from "../components/Dashboard.js";
 
 export default function Home() {
   return (
@@ -10,12 +9,11 @@ export default function Home() {
       style={{ backgroundImage: "url(images/farm.jpg)" }}
     >
       <Head>
-        <title>CropTracker</title>
+        <title>Crops</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Nav />
-      <HomeHero />
       <Dashboard />
     </div>
   );

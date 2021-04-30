@@ -178,10 +178,10 @@ export default function GasPrice(props) {
                     <div className="bg-white px-6 py-10">
                       <div>
                         <h3
-                          className="text-center text-1xl font-medium text-gray-900"
+                          className="text-center text-3xl font-medium text-gray-900"
                           id="tier-scale"
                         >
-                          Agricultural Engineer
+                          Agriculturalist
                         </h3>
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
