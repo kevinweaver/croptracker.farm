@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/outline";
-import gasPrice from "./utils/Zapper";
+import { gasPrice } from "./utils/Zapper";
 import ping from "./utils/CoinGecko";
 
 const hobbyFeatures = [
@@ -178,7 +178,7 @@ export default function GasPrice(props) {
                     <div className="bg-white px-6 py-10">
                       <div>
                         <h3
-                          className="text-center text-3xl font-medium text-gray-900"
+                          className="text-center text-2xl font-medium text-gray-900"
                           id="tier-scale"
                         >
                           Agriculturalist
