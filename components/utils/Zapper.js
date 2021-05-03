@@ -31,10 +31,9 @@ function requestUrl(endpoint) {
 }
 
 function sanitizePrices(prices) {
-  console.log("unsanitized", prices);
   for (var speed in prices) {
     prices[speed] = Math.ceil(prices[speed]);
   }
-  console.log("sanitized", prices);
+  console.log("prices:", prices);
   return prices;
 }
