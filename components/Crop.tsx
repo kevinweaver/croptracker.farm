@@ -136,7 +136,7 @@ Crop.defaultProps = {
   currentAPY: 1,
   amountHarvested: 1,
   amountHarvestedUSD: 1,
-  currentValueSeed: 1,
+  currentValue: 1,
   currentValueUSD: 1,
   profitLoss: 1,
   profitLossUSD: 1,

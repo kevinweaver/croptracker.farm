@@ -64,6 +64,7 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
+                  {/* The Combine processes rows of Crops */}
                   <Combine address="0x000" />
                 </tbody>
               </table>

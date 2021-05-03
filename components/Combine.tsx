@@ -7,7 +7,7 @@ interface CombineProps {
 }
 
 /*
- * The Combine's job is to ingest on-chain data and process Crops
+ * The Combine's job is to ingest on-chain data from Zapper and process Crops
  **/
 export const Combine: React.SFC<CombineProps> = (props) => {
   const cropsStatic = [
@@ -38,14 +38,15 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   useEffect(() => {
     setProcessing(true);
-    //processCrops().then((processedCrops) => {
-    //setProcessing(false);
-    //setCrops(processedCrops);
-    //});
+    processCrops().then((processedCrops) => {
+      setProcessing(false);
+      setCrops(processedCrops);
+    });
   }, []);
 
   const processCrops = async () => {
-    props.address;
+    console.log("staking address:", props.address);
+    return await stakedBalances(props.address);
   };
 
   //  create an array of crops
