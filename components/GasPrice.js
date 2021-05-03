@@ -34,6 +34,7 @@ export default function GasPrice(props) {
   }, []);
 
   const fetchGas = async () => {
+    console.log(gasPrice());
     return await gasPrice();
   };
 
