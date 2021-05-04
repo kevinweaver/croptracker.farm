@@ -8,31 +8,34 @@ export async function gasPrice() {
 }
 
 export async function transactions(address) {
-  return await request("v1/transactions");
+  return await request("v1/transactions", address);
 }
 
 export async function stakedBalances(address) {
-  const response = [];
-  response << request("v1/staked-balance/single-staking", address);
+  console.log("fetching stakedBalance", address);
+  return await request("v1/staked-balance/single-staking", address);
   // response << request("v1/staked-balance/masterchef");
   // response << request("v1/staked-balance/geysey");
   // response << request("v1/staked-balance/gauge");
-  console.log("stakedBalances", response);
-  return;
 }
 
 async function request(endpoint, address = "") {
+  console.log("requesting", requestUrl(endpoint, address));
+  console.log(
+    "REQUESTING https://api.zapper.fi/v1/staked-balance/single-staking?addresses%5B%5D=0xb1adceddb2941033a090dd166a462fe1c2029484&network=ethereum&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241"
+  );
   const response = await fetch(requestUrl(endpoint, address));
   const json = await response.json();
+  console.log(json);
   return json;
 }
 
 function requestUrl(endpoint, address = "") {
-  const optionalAddress = address ? "?addresses%5B%5D=" + address : "";
+  const optionalAddress = address ? "?addresses%5B%5D=" + address + "&" : "?";
   console.log("addresses:", address, optionalAddress);
 
   return (
-    apiUrl + endpoint + optionalAddress + "?network=ethereum&api_key=" + apiKey
+    apiUrl + endpoint + optionalAddress + "network=ethereum&api_key=" + apiKey
   );
 }
 

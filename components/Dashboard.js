@@ -1,4 +1,6 @@
 import { Combine } from "./Combine.tsx";
+const demoAddress = process.env.NEXT_PUBLIC_DEMO_ADDRESS;
+
 export default function Dashboard() {
   return (
     <>
@@ -64,8 +66,8 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* The Combine processes rows of Crops */}
-                  <Combine address="0x000" />
+                  {/* The Combine processes rows of Crops given an address */}
+                  <Combine address={demoAddress} />
                 </tbody>
               </table>
             </div>
