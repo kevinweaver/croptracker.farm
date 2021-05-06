@@ -22,25 +22,25 @@ interface CropProps {
 }
 
 export const Crop: React.SFC<CropProps> = (props) => {
-  const row = {
-    name: "",
-    symbol: "",
-    fieldName: "",
-    plantedDate: "",
-    seedCapital: 1,
-    seedSymbol: "",
-    plantingFeesETH: 1,
-    plantingFeesUSD: 1,
-    currentDPY: 1,
-    currentMPY: 1,
-    currentAPY: 1,
-    amountHarvested: 1,
-    amountHarvestedUSD: 1,
-    currentValue: 1,
-    currentValueUSD: 1,
-    profitLoss: 1,
-    profitLossUSD: 1,
-  };
+  var {
+    name,
+    symbol,
+    fieldName,
+    plantedDate,
+    seedCapital,
+    seedSymbol,
+    plantingFeesETH,
+    plantingFeesUSD,
+    currentDPY,
+    currentMPY,
+    currentAPY,
+    amountHarvested,
+    amountHarvestedUSD,
+    currentValue,
+    currentValueUSD,
+    profitLoss,
+    profitLossUSD,
+  } = props;
 
   return (
     <>
@@ -48,27 +48,27 @@ export const Crop: React.SFC<CropProps> = (props) => {
         id={"name"}
         className="px-6 py-4 whitespace-nowrap text-sm font-medium"
       >
-        <div className="text-sm text-gray-900">{row.name}</div>
+        <div className="text-sm text-gray-900">{name}</div>
       </td>
       <td
         id={"field"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
-        {row.fieldName}
+        {fieldName}
       </td>
       <td
         id={"planted"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
-        <div className="text-sm text-gray-500">{row.plantedDate}</div>
+        <div className="text-sm text-gray-500">{plantedDate}</div>
       </td>
       <td
         id={"seed-capital"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
         <div className="text-sm text-gray-900">
-          <span className="text-gray-400">{row.seedSymbol}</span>
-          {row.seedCapital}
+          <span className="text-gray-400">{seedSymbol}</span>
+          {seedCapital}
         </div>
       </td>
       <td
@@ -76,7 +76,7 @@ export const Crop: React.SFC<CropProps> = (props) => {
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
         <div className="text-sm text-red-900">
-          {row.plantingFeesETH}{" "}
+          {plantingFeesETH}{" "}
           {/* <span className="text-red-200">(total)</span> */}
         </div>
       </td>
@@ -84,19 +84,19 @@ export const Crop: React.SFC<CropProps> = (props) => {
         id={"current-yield"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
-        {row.currentAPY}
+        {currentAPY}
       </td>
       <td
         id={"current-value"}
         className="px-6 py-4 whitespace-nowrap text-sm text-green-700"
       >
-        {row.currentValue}
+        {currentValue}
       </td>
       <td
         id={"profit-loss"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
       >
-        {row.profitLoss}
+        {profitLoss}
       </td>
       <td
         id={"harvest"}
