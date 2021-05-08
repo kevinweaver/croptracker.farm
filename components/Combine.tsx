@@ -28,19 +28,38 @@ export const Combine: React.SFC<CombineProps> = (props) => {
   const processCrops = async () => {
     const balances = await yearnBalances(props.address);
     const apys = await vaultsApy();
-    console.log("WE DID IT", apys);
+    console.log("apys", apys);
+    let apyAddressMap = {};
     let processedCropRows = [];
     let processedCropHash = {};
 
+    apys.forEach((apy) => {
+      apyAddressMap[apy["address"].toUpperCase()] =
+        apy["apy"]["oneMonthSample"];
+    });
+
+    console.log("apymap", apyAddressMap);
     //pluck assets from response
     let assets = balances[Object.keys(balances)[0]]["products"][0]["assets"];
     console.log("yearn bals", assets);
     assets.forEach((crop) => {
-      processedCropRows.push(processCrop(crop));
+      //cropAddress = crop[]
+      let apy = 0;
+      if (addressMatch(crop, apyAddressMap)) {
+        console.log("MATCH!");
+        apy = apyAddressMap[crop.address.toUpperCase()];
+      }
+      processedCropRows.push(processCrop(crop, apy));
       processedCropHash[crop.address] = crop;
     });
 
     return { rows: processedCropRows, hash: processedCropHash };
+  };
+
+  const addressMatch = (crop, apys) => {
+    let cropAddress = crop["tokens"][0]["address"].toUpperCase();
+    console.log(cropAddress);
+    return apys[cropAddress];
   };
 
   const processSeeds = async (crops) => {
@@ -59,7 +78,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     return processSeeds;
   };
 
-  const processCrop = (crop) => {
+  const processCrop = (crop, apy) => {
     return (
       <Crop
         name={crop["label"]}
@@ -70,7 +89,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
         plantingFeesUSD={1}
         currentDPY={1}
         currentMPY={1}
-        currentAPY={crop["yearlyROI"]}
+        currentAPY={apy}
         amountHarvested={1}
         amountHarvestedUSD={1}
         currentValue={crop["balance"]}

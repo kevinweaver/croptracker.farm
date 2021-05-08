@@ -1,7 +1,7 @@
 const apiUrl = process.env.NEXT_PUBLIC_YEARN_API_URL;
 
 export async function vaultsApy() {
-  const requestUrl = apiUrl + "vaults/apy";
+  const requestUrl = apiUrl + "vaults/all";
 
   const response = request(requestUrl);
   return response;
