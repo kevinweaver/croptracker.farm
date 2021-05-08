@@ -4,8 +4,8 @@ export default function Nav() {
       <div className="p-3 md:flex md:items-center md:justify-between">
         <div className="flex-1 min-w-0">
           <h2
-            className="ml-2 text-2xl font-bold leading-7 text-white \
-        sm:text-3xl sm:truncate text-shadow"
+            className="ml-2 text-2xl font-bold leading-7 \
+        sm:text-3xl sm:truncate text-shadow text-yellow-400"
           >
             CropTracker
           </h2>

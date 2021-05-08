@@ -40,7 +40,7 @@ export default function GasPrice(props) {
 
   return (
     <>
-      <div className="pt-12 px-4 sm:px-6 lg:px-8 lg:pt-20">
+      <div className="pt-6 px-4 sm:px-6 lg:px-8 lg:pt-8">
         <div className="text-center">
           <h2
             className="text-lg leading-6 font-semibold \
@@ -99,7 +99,7 @@ export default function GasPrice(props) {
                         <div className="rounded-lg shadow-md">
                           <a
                             href="#"
-                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-indigo-600 hover:bg-gray-50"
+                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-yellow-500 hover:bg-gray-50"
                             aria-describedby="tier-hobby"
                           >
                             Connect Wallet
@@ -113,12 +113,12 @@ export default function GasPrice(props) {
               <div className="mt-10 max-w-lg mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-start-3 lg:col-end-6 lg:row-start-1 lg:row-end-4">
                 <div className="relative z-10 rounded-lg shadow-xl">
                   <div
-                    className="pointer-events-none absolute inset-0 rounded-lg border-2 border-indigo-600"
+                    className="pointer-events-none absolute inset-0 rounded-lg border-2 border-yellow-500"
                     aria-hidden="true"
                   />
                   <div className="absolute inset-x-0 top-0 transform translate-y-px">
                     <div className="flex justify-center transform -translate-y-1/2">
-                      <span className="inline-flex rounded-full bg-indigo-600 px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white">
+                      <span className="inline-flex rounded-full bg-yellow-500 px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white">
                         Most popular
                       </span>
                     </div>
@@ -163,7 +163,7 @@ export default function GasPrice(props) {
                       <div className="rounded-lg shadow-md">
                         <a
                           href="#"
-                          className="block w-full text-center rounded-lg border border-transparent bg-indigo-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-indigo-700"
+                          className="block w-full text-center rounded-lg border border-transparent bg-yellow-500 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-yellow-600"
                           aria-describedby="tier-growth"
                         >
                           Connect Wallet
@@ -216,7 +216,7 @@ export default function GasPrice(props) {
                         <div className="rounded-lg shadow-md">
                           <a
                             href="#"
-                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-indigo-600 hover:bg-gray-50"
+                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-yellow-500 hover:bg-gray-50"
                             aria-describedby="tier-scale"
                           >
                             Connect Wallet

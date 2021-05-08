@@ -42,6 +42,13 @@ export const Crop: React.SFC<CropProps> = (props) => {
     profitLossUSD,
   } = props;
 
+  function toUSD(val) {
+    return val.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+  }
+
   return (
     <>
       <td
@@ -66,14 +73,14 @@ export const Crop: React.SFC<CropProps> = (props) => {
         id={"seed-capital"}
         className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
       >
-        <div className="text-sm text-gray-900">
+        <div className="text-sm text-right text-gray-900">
           <span className="text-gray-400">{seedSymbol}</span>
           {seedCapital}
         </div>
       </td>
       <td
         id={"planting-fees"}
-        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+        className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500"
       >
         <div className="text-sm text-red-900">
           {plantingFeesETH}{" "}
@@ -82,27 +89,27 @@ export const Crop: React.SFC<CropProps> = (props) => {
       </td>
       <td
         id={"current-yield"}
-        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+        className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500"
       >
-        {currentAPY}
+        {(currentAPY * 100).toFixed(2) + "%"}
       </td>
       <td
         id={"current-value"}
-        className="px-6 py-4 whitespace-nowrap text-sm text-green-700"
+        className="px-6 py-4 whitespace-nowrap text-right text-sm text-green-700"
       >
-        {currentValue}
+        <span className="text-right">{toUSD(currentValueUSD)}</span>
       </td>
       <td
         id={"profit-loss"}
-        className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+        className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-900"
       >
-        {profitLoss}
+        {toUSD(profitLoss)}
       </td>
       <td
         id={"harvest"}
         className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
       >
-        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+        <a href="#" className="text-yellow-500 hover:text-yellow-600">
           Harvest
         </a>
       </td>

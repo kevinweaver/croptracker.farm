@@ -1,14 +1,10 @@
 const apiKey = "api_key=" + process.env.NEXT_PUBLIC_ZAPPER_API_KEY;
 const apiUrl = process.env.NEXT_PUBLIC_ZAPPER_API_URL;
-const network = "network=ethereum";
+const network = "ethereum";
+const networkParam = "network=" + network;
 
 export async function gasPrice() {
-  const prices = await request("v1/gas-price");
-  return sanitizePrices(prices);
-}
-
-export async function stakedBalances(address) {
-  return await request("v1/staked-balance/single-staking", address);
+  return sanitizePrices(await request("v1/gas-price"));
 }
 
 export async function transactions(address) {
@@ -16,26 +12,58 @@ export async function transactions(address) {
   const response = await fetch(requestUrl);
   const json = await response.json();
 
-  console.log("mine", requestUrl);
-  console.log(
-    "real",
-    "https://api.zapper.fi/v1/transactions/0xb1adceddb2941033a090dd166a462fe1c2029484?api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241"
-  );
   console.log(json);
   return json;
+}
+
+export async function stakedBalances(address) {
+  return await request("v1/staked-balance/single-staking", address);
+}
+
+export async function protocolBalances(address) {
+  // As of 5/8/21, the /protocols/balances endpoint doesn't actually return balances
+  // so we must fetch them ourselves
+  let networks = await protocolBalancesSupported(address);
+
+  // find protocols with a balance
+  let protocols = [];
+  networks.forEach((curr) => {
+    if (curr["network"] == network) {
+      protocols.push(curr["protocols"]);
+    }
+  });
+
+  protocols = protocols.flat();
+
+  protocols.forEach(async (curr) => {
+    let protocol = await protocolBalance(curr["protocol"], address);
+    curr["balances"] = protocol[address]["products"];
+  });
+
+  console.log("protocols", protocols);
+
+  return protocols;
+}
+
+async function protocolBalancesSupported(address) {
+  return await request("v1/protocols/balances/supported", address);
+}
+
+async function protocolBalance(protocol, address) {
+  return await request("v1/protocols/" + protocol + "/balances", address);
 }
 
 async function request(endpoint, address = "") {
   const response = await fetch(requestUrl(endpoint, address));
   const json = await response.json();
-  console.log("response: ", endpoint, address, json);
+  //console.log("response: ", endpoint, address, json);
   return json;
 }
 
 function requestUrl(endpoint, address = "") {
   const optionalAddress = address ? "?addresses%5B%5D=" + address + "&" : "?";
 
-  return apiUrl + endpoint + optionalAddress + network + "&" + apiKey;
+  return apiUrl + endpoint + optionalAddress + networkParam + "&" + apiKey;
 }
 
 function sanitizePrices(prices) {

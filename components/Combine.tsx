@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { stakedBalances, transactions } from "./utils/Zapper";
+import { protocolBalances, transactions } from "./utils/Zapper";
 import { Crop } from "./Crop.tsx";
 
 interface CombineProps {
@@ -12,35 +12,44 @@ interface CombineProps {
 export const Combine: React.SFC<CombineProps> = (props) => {
   const [address, setAddress] = useState("0x000");
   const [crops, setCrops] = useState<Crop[] | []>([]);
+  const [totalGas, setTotalGas] = useState(0);
   const [processing, setProcessing] = useState(true);
 
   useEffect(() => {
     setProcessing(true);
     processCrops().then((processedCrops) => {
-      setCrops(processedCrops);
+      setCrops(processedCrops["rows"]);
       setProcessing(false);
-      processSeeds(processedCrops);
+      processSeeds(processedCrops["hash"]);
     });
   }, []);
 
   const processCrops = async () => {
-    const balances = await stakedBalances(props.address);
-    const processedCrops = [];
+    const balances = await protocolBalances(props.address);
+    const processedCropRows = [];
+    const processedCropHash = {};
 
     balances[props.address].forEach((crop) => {
-      processedCrops.push(processCrop(crop));
+      processedCropRows.push(processCrop(crop));
+      processedCropHash[crop.address] = crop;
     });
 
-    return processedCrops;
+    return { rows: processedCropRows, hash: processedCropHash };
   };
 
   const processSeeds = async (crops) => {
     const allTransactions = await transactions(props.address);
+    let totalGas = 0;
+    let processedSeeds = {};
 
-    const processedSeeds = {};
-    Object.keys(allTransactions).forEach((seed) => {
-      console.log(seed["address"]);
-    });
+    //allTransactions.forEach(transaction => {
+    //  totalGas += transaction["gas"];
+    //  Object.keys(crops).forEach((crop) => {
+    //    if (transaction["address"])
+
+    //  });
+    //  console.log("cool beans");
+    //});
     return processSeeds;
   };
 
@@ -53,16 +62,16 @@ export const Combine: React.SFC<CombineProps> = (props) => {
         name={crop["label"]}
         fieldName={fieldName(crop)}
         plantedData="12/12/21"
-        seedCapital={100}
+        seedCapital={1000}
         plantingFeesETH={1}
         plantingFeesUSD={1}
         currentDPY={1}
         currentMPY={1}
-        currentAPY={1}
+        currentAPY={crop["yearlyROI"]}
         amountHarvested={1}
         amountHarvestedUSD={1}
-        currentValueSeed={1}
-        currentValueUSD={1}
+        currentValue={crop["balance"]}
+        currentValueUSD={crop["balanceUSD"]}
         profitLossSeed={1}
         profitLossUSD={1}
       />
@@ -70,7 +79,9 @@ export const Combine: React.SFC<CombineProps> = (props) => {
   };
 
   const fieldName = (crop) => {
-    crop.protocol;
+    return (
+      crop["protocol"] || crop["protocolSymbol"] || crop["stakingStrategy"]
+    );
   };
 
   return (

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import HomeHero from "../components/HomeHero.js";
 import Dashboard from "../components/Dashboard.js";
+import GasPrice from "../components/GasPrice.js";
 import Nav from "../components/Nav.js";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Nav />
       <HomeHero />
       <Dashboard />
+      <GasPrice />
     </div>
   );
 }
