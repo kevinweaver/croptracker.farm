@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { protocolBalances, yearnBalances, transactions } from "./utils/Zapper";
+import { vaultsApy } from "./utils/Yearn";
 import { Crop } from "./Crop.tsx";
 
 interface CombineProps {
@@ -20,12 +21,14 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     processCrops().then((processedCrops) => {
       setCrops(processedCrops["rows"]);
       setProcessing(false);
-      processSeeds(processedCrops["hash"]);
+      //processSeeds(processedCrops["hash"]);
     });
   }, []);
 
   const processCrops = async () => {
-    const balances = await yearnBalances(props.address); //protocolBalances(props.address);
+    const balances = await yearnBalances(props.address);
+    const apys = await vaultsApy();
+    console.log("WE DID IT", apys);
     let processedCropRows = [];
     let processedCropHash = {};
 
@@ -61,7 +64,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
       <Crop
         name={crop["label"]}
         fieldName={fieldName(crop)}
-        plantedData="12/12/21"
+        plantedData={"12/12/21"}
         seedCapital={1000}
         plantingFeesETH={1}
         plantingFeesUSD={1}
