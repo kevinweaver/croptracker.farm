@@ -19,7 +19,6 @@ export default function Home() {
       <Nav />
       <HomeHero />
       <Dashboard />
-
       <Footer />
     </div>
   );

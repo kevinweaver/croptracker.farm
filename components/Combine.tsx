@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { protocolBalances, transactions } from "./utils/Zapper";
+import { protocolBalances, yearnBalances, transactions } from "./utils/Zapper";
 import { Crop } from "./Crop.tsx";
 
 interface CombineProps {
@@ -17,19 +17,22 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   useEffect(() => {
     setProcessing(true);
-    //processCrops().then((processedCrops) => {
-    //  setCrops(processedCrops["rows"]);
-    //  setProcessing(false);
-    //  processSeeds(processedCrops["hash"]);
-    //});
+    processCrops().then((processedCrops) => {
+      setCrops(processedCrops["rows"]);
+      setProcessing(false);
+      processSeeds(processedCrops["hash"]);
+    });
   }, []);
 
   const processCrops = async () => {
-    const balances = await protocolBalances(props.address);
-    const processedCropRows = [];
-    const processedCropHash = {};
+    const balances = await yearnBalances(props.address); //protocolBalances(props.address);
+    let processedCropRows = [];
+    let processedCropHash = {};
 
-    balances[props.address].forEach((crop) => {
+    //pluck assets from response
+    let assets = balances[Object.keys(balances)[0]]["products"][0]["assets"];
+    console.log("yearn bals", assets);
+    assets.forEach((crop) => {
       processedCropRows.push(processCrop(crop));
       processedCropHash[crop.address] = crop;
     });
@@ -52,8 +55,6 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     //});
     return processSeeds;
   };
-
-  const processSeed = (seed) => {};
 
   const processCrop = (crop) => {
     return (
