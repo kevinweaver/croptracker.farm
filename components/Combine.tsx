@@ -17,11 +17,11 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   useEffect(() => {
     setProcessing(true);
-    processCrops().then((processedCrops) => {
-      setCrops(processedCrops["rows"]);
-      setProcessing(false);
-      processSeeds(processedCrops["hash"]);
-    });
+    //processCrops().then((processedCrops) => {
+    //  setCrops(processedCrops["rows"]);
+    //  setProcessing(false);
+    //  processSeeds(processedCrops["hash"]);
+    //});
   }, []);
 
   const processCrops = async () => {
@@ -56,7 +56,6 @@ export const Combine: React.SFC<CombineProps> = (props) => {
   const processSeed = (seed) => {};
 
   const processCrop = (crop) => {
-    console.log(crop["label"]);
     return (
       <Crop
         name={crop["label"]}

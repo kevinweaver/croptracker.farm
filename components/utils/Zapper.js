@@ -20,6 +20,13 @@ export async function stakedBalances(address) {
   return await request("v1/staked-balance/single-staking", address);
 }
 
+// WIP Too much differentiation to parse through
+export async function yearnBalances(address) {
+  let response = await protocolBalance("yearn", address);
+  console.log(protocol[address]["products"]);
+  return protocol[address]["products"];
+}
+// WIP Too much differentiation to parse through
 export async function protocolBalances(address) {
   // As of 5/8/21, the /protocols/balances endpoint doesn't actually return balances
   // so we must fetch them ourselves
