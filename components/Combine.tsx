@@ -77,6 +77,12 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     );
   };
 
+  const placeholderCrops = () => {
+    let crops = [];
+    for (var i = 0; i < 13; i++) crops.push(<Crop placeholder="true" />);
+    return crops;
+  };
+
   const fieldName = (crop) => {
     return (
       crop["protocol"] || crop["protocolSymbol"] || crop["stakingStrategy"]
@@ -85,6 +91,15 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   return (
     <>
+      {processing &&
+        placeholderCrops().map((crop, cropIdx) => (
+          <tr
+            key={cropIdx}
+            className={cropIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+          >
+            {crop}
+          </tr>
+        ))}
       {!processing &&
         crops?.map((crop, cropIdx) => (
           <tr
