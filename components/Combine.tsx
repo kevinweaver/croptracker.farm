@@ -72,16 +72,21 @@ export const Combine: React.SFC<CombineProps> = (props) => {
   };
 
   const processSeeds = async (crops) => {
-    const allTransactions = await transactions(props.address);
+    const seeds = await transactions(props.address);
     let datesPlanted = [];
     let plantingFees = [];
     let seedCapital = 0;
     let processedSeeds = {};
-    // date planted
     // seed capital
     // planting fees
+    crops = mapSeedsToCrops(seeds, crops);
+    console.log("seeds mapped", crops);
 
-    allTransactions.forEach((transaction) => {
+    return processedSeeds;
+  };
+
+  const mapSeedsToCrops = (seeds, crops) => {
+    seeds.forEach((transaction) => {
       //look for transactions with an incoming + outgoing
       if (transaction["subTransactions"].length == 2) {
         // Loop though subtransactions
@@ -103,7 +108,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
         });
       }
     });
-    return processSeeds;
+    return crops;
   };
 
   const processCrop = (crop) => {
