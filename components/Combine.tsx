@@ -141,7 +141,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   const placeholderCrops = () => {
     let crops = [];
-    for (var i = 0; i < 13; i++) crops.push(<Crop placeholder="true" />);
+    for (var i = 0; i < 8; i++) crops.push(<Crop placeholder="true" />);
     return crops.map((crop, cropIdx) => (
       <tr
         key={cropIdx}

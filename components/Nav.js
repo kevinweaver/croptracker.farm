@@ -11,7 +11,7 @@ export default function Nav() {
           </h2>
         </div>
         <div className="mt-4 flex md:mt-0 md:ml-4">
-          <button
+          {/* <button
             type="button"
             className="inline-flex items-center px-6 py-3 border \
         rounded-full border-transparent text-base font-medium\
@@ -26,7 +26,7 @@ export default function Nav() {
             >
               Connect
             </span>
-          </button>
+          </button> */}
         </div>
       </div>
     </>

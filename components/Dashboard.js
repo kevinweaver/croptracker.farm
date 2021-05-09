@@ -13,6 +13,33 @@ export default function Dashboard() {
           >
             Dashboard
           </h2>
+          <label className="mt-6 mx-8 block text-md font-medium text-white text-shadow">
+            Insert Address
+          </label>
+          <form
+            action="#"
+            method="POST"
+            className="mx-8 flex gap-y-6 sm:grid-cols-2 sm:gap-x-8"
+          >
+            <div className="flex-1">
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                autoComplete="given-name"
+                className="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="flex-none">
+              <button
+                type="submit"
+                className="px-6 py-3 block w-full border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Analyze Crops
+              </button>
+            </div>
+          </form>
+
           <GasPriceSmall />
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
