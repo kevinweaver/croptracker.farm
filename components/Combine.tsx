@@ -33,22 +33,23 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     let processedCropRows = [];
     let processedCropHash = {};
 
+    //build map of APY addresses
     apys.forEach((apy) => {
-      apyAddressMap[apy["address"].toUpperCase()] =
+      if (apy["symbol"].toUpperCase() == "USDT") {
+        console.log("!!!!!!!!!!!!!!!!found usdt", apy["apy"]);
+        console.log(apy);
+      }
+      apyAddressMap[apy["tokenAddress"].toUpperCase()] =
         apy["apy"]["oneMonthSample"];
     });
 
-    console.log("apymap", apyAddressMap);
+    console.log("apymap", apyAddressMap, Object.keys(apyAddressMap).length);
     //pluck assets from response
-    let assets = balances[Object.keys(balances)[0]]["products"][0]["assets"];
-    console.log("yearn bals", assets);
-    assets.forEach((crop) => {
+    let crops = balances[Object.keys(balances)[0]]["products"][0]["assets"];
+    console.log("yearn bals", crops);
+    crops.forEach((crop) => {
       //cropAddress = crop[]
-      let apy = 0;
-      if (addressMatch(crop, apyAddressMap)) {
-        console.log("MATCH!");
-        apy = apyAddressMap[crop.address.toUpperCase()];
-      }
+      let apy = apyIfFound(crop, apyAddressMap);
       processedCropRows.push(processCrop(crop, apy));
       processedCropHash[crop.address] = crop;
     });
@@ -56,9 +57,13 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     return { rows: processedCropRows, hash: processedCropHash };
   };
 
-  const addressMatch = (crop, apys) => {
+  const apyIfFound = (crop, apys) => {
     let cropAddress = crop["tokens"][0]["address"].toUpperCase();
-    console.log(cropAddress);
+    //let singleCropAddress = crop["tokensAddress"].toUpperCase();
+    //console.log(cropAddress);
+    if (cropAddress in apys) {
+      //console.log("MATCH!", crop["label"], apys[cropAddress], cropAddress);
+    }
     return apys[cropAddress];
   };
 

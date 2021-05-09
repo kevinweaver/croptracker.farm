@@ -1,0 +1,8 @@
+- [] Finish APY
+- [] Fix planted data
+- [] Add address input
+- [] Push
+- [] Search for seed capital + date + fees
+- [] Calc P/L
+- [] Connect button?
+- [] Record video
