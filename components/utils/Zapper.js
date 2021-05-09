@@ -12,7 +12,6 @@ export async function transactions(address) {
   const response = await fetch(requestUrl);
   const json = await response.json();
 
-  console.log(json);
   return json;
 }
 
@@ -22,7 +21,6 @@ export async function stakedBalances(address) {
 
 export async function yearnBalances(address) {
   let response = await protocolBalance("yearn", address);
-  console.log("response", response);
   return response;
 }
 
@@ -46,8 +44,6 @@ export async function protocolBalances(address) {
     let protocol = await protocolBalance(curr["protocol"], address);
     curr["balances"] = protocol[address]["products"];
   });
-
-  console.log("protocols", protocols);
 
   return protocols;
 }

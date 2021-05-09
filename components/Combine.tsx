@@ -13,7 +13,6 @@ interface CombineProps {
 export const Combine: React.SFC<CombineProps> = (props) => {
   const [address, setAddress] = useState("0x000");
   const [crops, setCrops] = useState<Crop[] | []>([]);
-  const [totalGas, setTotalGas] = useState(0);
   const [processing, setProcessing] = useState(true);
 
   useEffect(() => {
@@ -21,40 +20,45 @@ export const Combine: React.SFC<CombineProps> = (props) => {
     processCrops().then((processedCrops) => {
       setCrops(processedCrops["rows"]);
       setProcessing(false);
-      //processSeeds(processedCrops["hash"]);
+      processSeeds(processedCrops["hash"]);
     });
   }, []);
 
   const processCrops = async () => {
     const balances = await yearnBalances(props.address);
-    const apys = await vaultsApy();
-    console.log("apys", apys);
+    //const apys = await vaultsApy();
+    //console.log("apys", apys);
     let apyAddressMap = {};
     let processedCropRows = [];
+    let processedCropArray = [];
     let processedCropHash = {};
 
     //build map of APY addresses
-    apys.forEach((apy) => {
-      if (apy["symbol"].toUpperCase() == "USDT") {
-        console.log("!!!!!!!!!!!!!!!!found usdt", apy["apy"]);
-        console.log(apy);
-      }
-      apyAddressMap[apy["tokenAddress"].toUpperCase()] =
-        apy["apy"]["oneMonthSample"];
-    });
+    //apys.forEach((apy) => {
+    //  if (apy["symbol"].toUpperCase() == "USDT") {
+    //    console.log("!!!!!!!!!!!!!!!!found usdt", apy["apy"]);
+    //    console.log(apy);
+    //  }
+    //  apyAddressMap[apy["tokenAddress"].toUpperCase()] =
+    //    apy["apy"]["oneMonthSample"];
+    //});
 
-    console.log("apymap", apyAddressMap, Object.keys(apyAddressMap).length);
+    //console.log("apymap", apyAddressMap, Object.keys(apyAddressMap).length);
     //pluck assets from response
     let crops = balances[Object.keys(balances)[0]]["products"][0]["assets"];
-    console.log("yearn bals", crops);
     crops.forEach((crop) => {
       //cropAddress = crop[]
-      let apy = apyIfFound(crop, apyAddressMap);
-      processedCropRows.push(processCrop(crop, apy));
+      //let apy = apyIfFound(crop, apyAddressMap);
+      processedCropRows.push(processCrop(crop));
+      processedCropArray.push(crop);
       processedCropHash[crop.address] = crop;
     });
 
-    return { rows: processedCropRows, hash: processedCropHash };
+    return {
+      rows: processedCropRows,
+      array: processedCropArray,
+      hash: processedCropHash,
+    };
   };
 
   const apyIfFound = (crop, apys) => {
@@ -69,21 +73,40 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   const processSeeds = async (crops) => {
     const allTransactions = await transactions(props.address);
-    let totalGas = 0;
+    let datesPlanted = [];
+    let plantingFees = [];
+    let seedCapital = 0;
     let processedSeeds = {};
+    // date planted
+    // seed capital
+    // planting fees
 
-    //allTransactions.forEach(transaction => {
-    //  totalGas += transaction["gas"];
-    //  Object.keys(crops).forEach((crop) => {
-    //    if (transaction["address"])
+    allTransactions.forEach((transaction) => {
+      //look for transactions with an incoming + outgoing
+      if (transaction["subTransactions"].length == 2) {
+        // Loop though subtransactions
+        transaction["subTransactions"].forEach((subTrans) => {
+          if (subTrans["type"] == "incoming") {
+            //see if the address exists in crops
+            if (subTrans["address"] in crops) {
+              let crop = crops[subTrans["address"]];
 
-    //  });
-    //  console.log("cool beans");
-    //});
+              //push the transaction onto the crop
+              crop["transactions"] =
+                "transactions" in crop
+                  ? crop["transactions"].push(transaction)
+                  : [transaction];
+              console.log(crop["transactions"]);
+            }
+            //});
+          }
+        });
+      }
+    });
     return processSeeds;
   };
 
-  const processCrop = (crop, apy) => {
+  const processCrop = (crop) => {
     return (
       <Crop
         name={crop["label"]}
@@ -94,7 +117,7 @@ export const Combine: React.SFC<CombineProps> = (props) => {
         plantingFeesUSD={1}
         currentDPY={1}
         currentMPY={1}
-        currentAPY={apy}
+        currentAPY={4.2}
         amountHarvested={1}
         amountHarvestedUSD={1}
         currentValue={crop["balance"]}
