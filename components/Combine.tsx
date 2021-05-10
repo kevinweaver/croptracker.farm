@@ -17,11 +17,11 @@ export const Combine: React.SFC<CombineProps> = (props) => {
 
   useEffect(() => {
     setProcessing(true);
-    processCrops().then((processedCrops) => {
-      setCrops(processedCrops["rows"]);
-      setProcessing(false);
-      processSeeds(processedCrops["hash"]);
-    });
+    // processCrops().then((processedCrops) => {
+    //   setCrops(processedCrops["rows"]);
+    //   setProcessing(false);
+    //   processSeeds(processedCrops["hash"]);
+    // });
   }, []);
 
   const processCrops = async () => {

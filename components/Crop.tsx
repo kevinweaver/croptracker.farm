@@ -64,7 +64,7 @@ export const Crop: React.SFC<CropProps> = (props) => {
         ></td>
         <td
           id={"planted"}
-          className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+          className="px-6 py-4 whitespace-nowrap text-sm text-rti text-gray-500"
         ></td>
         <td
           id={"seed-capital"}
@@ -87,6 +87,10 @@ export const Crop: React.SFC<CropProps> = (props) => {
         <td
           id={"current-value"}
           className="px-6 py-4 whitespace-nowrap text-right text-sm text-green-700"
+        ></td>
+        <td
+          id={"harvest-fees"}
+          className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500"
         ></td>
         <td
           id={"profit-loss"}
@@ -141,6 +145,7 @@ export const Crop: React.SFC<CropProps> = (props) => {
               {/* <span className="text-red-200">(total)</span> */}
             </div>
           </td>
+
           <td
             id={"current-yield"}
             className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500"
